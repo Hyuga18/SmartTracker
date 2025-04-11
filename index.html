@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Link Tracker</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <h1>Simple Link Tracker</h1>
+    <form id="linkForm">
+        <label for="urlInput">Enter URL:</label>
+        <input type="url" id="urlInput" placeholder="https://example.com" required>
+        <button type="submit">Generate Tracking Link</button>
+    </form>
+    <div id="result" style="margin-top: 20px;">
+        <h2>Generated Tracking Link:</h2>
+        <p id="trackingLink"></p>
+    </div>
+    <div id="logList" style="margin-top: 20px;">
+        <h2>Click Log:</h2>
+        <ul id="logEntries"></ul>
+    </div>
+    <script src="script.js"></script>
+</body>
+</html>
