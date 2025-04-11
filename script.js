@@ -125,7 +125,7 @@ document.addEventListener('DOMContentLoaded', () => {
         - User Agent: ${userAgent}
         - Time: ${timestamp}`;
     
-        fetch('http://localhost:3000/send-email', {
+        fetch(`${getServerUrl()}/send-email`, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'
@@ -180,12 +180,51 @@ document.addEventListener('DOMContentLoaded', () => {
             console.log('QR Code generated successfully!');
         });
     }
+
+    // Function to save data to localStorage
+    function saveDataToLocalStorage(key, data) {
+        localStorage.setItem(key, JSON.stringify(data));
+    }
+
+    // Function to load data from localStorage
+    function loadDataFromLocalStorage(key) {
+        const data = localStorage.getItem(key);
+        return data ? JSON.parse(data) : null;
+    }
+
+    // Example: Load form data on page load
+    const savedData = loadDataFromLocalStorage('emailFormData');
+    if (savedData) {
+        document.getElementById('to').value = savedData.to || '';
+        document.getElementById('subject').value = savedData.subject || '';
+        document.getElementById('text').value = savedData.text || '';
+    }
+});
+
+// Function to get the server URL
+function getServerUrl() {
+    const hostname = window.location.hostname;
+    const port = '3000';
+    return `http://${hostname}:${port}`;
+}
+
+// Example: Save form data
+document.querySelector('form').addEventListener('submit', (event) => {
+    event.preventDefault();
+    const formData = {
+        to: document.getElementById('to').value,
+        subject: document.getElementById('subject').value,
+        text: document.getElementById('text').value,
+    };
+    saveDataToLocalStorage('emailFormData', formData);
+    // ...existing code to send email...
 });
 
 // Email sending functionality
 async function sendEmailNotification(to, subject, text) {
     try {
-        const response = await fetch('http://localhost:3000/send-email', { // Ensure this matches the server's address and port
+        const serverUrl = getServerUrl();
+        const response = await fetch(`${serverUrl}/send-email`, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
