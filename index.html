@@ -5,22 +5,46 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Link Tracker</title>
     <link rel="stylesheet" href="style.css">
+    <!-- Add Leaflet CSS -->
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
 </head>
 <body>
     <h1>Simple Link Tracker</h1>
     <form id="linkForm">
         <label for="urlInput">Enter URL:</label>
         <input type="url" id="urlInput" placeholder="https://example.com" required>
+        <br>
+        <label for="aliasInput">Custom Alias (optional):</label>
+        <input type="text" id="aliasInput" placeholder="my-custom-alias">
+        <br>
+        <label for="expiryInput">Expiration Time (optional):</label>
+        <input type="datetime-local" id="expiryInput">
+        <br>
         <button type="submit">Generate Tracking Link</button>
     </form>
+    <div id="spinner" style="display: none;">Loading...</div>
+    <div id="notification" style="display: none;"></div>
     <div id="result" style="margin-top: 20px;">
         <h2>Generated Tracking Link:</h2>
         <p id="trackingLink"></p>
+        <button id="copyLinkButton">Copy Link</button>
     </div>
+    <div id="qrCode" style="margin-top: 20px;">
+        <h2>QR Code:</h2>
+        <canvas id="qrCanvas"></canvas>
+    </div>
+    <div id="qrcode"></div>
+    <div id="map" style="height: 400px; margin-top: 20px;"></div>
     <div id="logList" style="margin-top: 20px;">
         <h2>Click Log:</h2>
         <ul id="logEntries"></ul>
+        <button id="clearLogButton">Clear Log</button>
     </div>
+    <!-- Add Leaflet JS -->
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+    <!-- Add QRCode library -->
+    <script src="https://cdn.jsdelivr.net/npm/qrcode/build/qrcode.min.js"></script>
+    <!-- Ensure your script.js is included after the QRCode library -->
     <script src="script.js"></script>
 </body>
 </html>
